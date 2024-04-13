@@ -1,10 +1,7 @@
-class PasswordRecord:
-    def __init__(self, title, username, password, confirm, method):
-        self.title = title
-        self.username = username
-        self.password = password
-        self.confirm = confirm
-        self.method = method
+import uuid
+from cryptography.fernet import Fernet
+
+
 
 class PasswordManager:
     def __init__(self, machine_id, master_password):
@@ -12,6 +9,7 @@ class PasswordManager:
         self.master_password = master_password
         self.records1 = {}
         self.records2 = {}
+        self.authentication = Authentication()
 
     def authenticate(self, password):
         return self.master_password == password
@@ -39,10 +37,25 @@ class PasswordManager:
         del self.records1[record.title]
         del self.records2[record.username]
         return True
+
+
+class Authentication:
+    def authenticate_with_uuid3(self, namespace, name):
+        uuid3 = uuid.uuid3(namespace, name)
+        return self.authenticate(str(uuid3))
     
-
-
-def authenticate_with_uuid3(self, namespace, name):
-    uuid3 = uuid.uuid3(namespace, name)
-    return self.authenticate(str(uuid3))
+class Encrypt:
+    def encrypt(self, text):
+        key = Fernet.generate_key()
+        cipher_suite = Fernet(key)
+        encrypted_text = cipher_suite.encrypt(text.encode())
+        return encrypted_text
+    
+class Decrypt:
+    def decrypt(self, text):
+        key = Fernet.generate_key()
+        cipher_suite = Fernet(key)
+        decrypted_text = cipher_suite.decrypt(text.encode())
+        return decrypted_text.decode()
+        return text
 
