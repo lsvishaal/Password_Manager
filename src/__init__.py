@@ -29,8 +29,8 @@ class PasswordManager:
         self.records_by_title[encrypted_title] = record
         self.records_by_username[encrypted_username] = record
 
-        # Store encrypted record in database
-        self.store_record_in_database(encrypted_title, encrypted_username, encrypted_password)
+        # # Store encrypted record in database
+        # self.store_record_in_database(encrypted_title, encrypted_username, encrypted_password)
 
         return True
 
@@ -45,9 +45,9 @@ class PasswordManager:
         del self.records_by_username[record.username]
         return True
 
-    def store_record_in_database(self, encrypted_title, encrypted_username, encrypted_password):
-        # Implement database storage logic here
-        pass
+    # def store_record_in_database(self, encrypted_title, encrypted_username, encrypted_password):
+    #     # Implement database storage logic here
+    #     pass
 
 
 class CipherSuite:
